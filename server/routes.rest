@@ -1,0 +1,55 @@
+POST http://localhost:3002/user/register
+Content-Type: application/json
+
+
+{
+    "name":"Solomon",
+    "password":"solomon",
+    "email":"sol@gmail.com"
+}
+###
+POST http://localhost:3002/user/login
+Content-Type: application/json
+
+
+{
+    "name":"Solomon",
+    "password":"solomon"
+}
+###
+PATCH http://localhost:3002/user/5fe24aab5aff091f18eebae4
+Content-Type: application/json
+
+
+{
+    "password":"Sanusi"
+}
+
+###
+GET  http://localhost:3002/user/5fe24aab5aff091f18eebae4
+###
+GET  http://localhost:3002/user/url/5fe24aab5aff091f18eebae4
+###
+POST http://localhost:3002/5fe24aab5aff091f18eebae4
+Content-Type: application/json
+
+
+{
+    "fullUrl":"www.google.com"
+    
+}
+###
+GET http://localhost:3002/url/90543126fb
+
+###
+PATCH  http://localhost:3002/5fe256cdaec298238857049e
+Content-Type: application/json
+
+
+{
+    "fullUrl":"www.netlify.app"
+    
+}
+
+###
+DELETE http://localhost:3002/5fe256cdaec298238857049e
