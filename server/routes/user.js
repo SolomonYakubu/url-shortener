@@ -10,7 +10,9 @@ const verifyToken = require("../auth/userAuth");
 //get user by id
 router.get("/:id", verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await (await User.findById(req.params.id))
+      .populate("url")
+      .execPopulate();
     if (!user) {
       return res.sendStatus(404);
     }
@@ -72,21 +74,7 @@ router.post("/login", async (req, res) => {
     res.json({ message: error.message });
   }
 });
-//get all user Url
-router.get("/url/:id", verifyToken, async (req, res) => {
-  try {
-    const url = await Url.find({ user_id: req.params.id });
-    if (!url) {
-      return res.sendStatus(404);
-    }
-    if (req.data.id != req.params.id) {
-      return res.sendStatus(403);
-    }
-    res.json(url);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-});
+
 //correct user details
 
 router.patch("/:id", verifyToken, async (req, res) => {

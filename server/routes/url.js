@@ -21,7 +21,10 @@ router.post("/:user_id", verifyToken, async (req, res) => {
     });
 
     const newUrl = await url.save();
-    console.log("hello");
+    const user = await User.findOne({ _id: user_id });
+
+    user.url = [...user.url, newUrl._id];
+    user.save();
     res.json(newUrl);
   } catch (error) {
     res.json({ message: error.message });
