@@ -115,43 +115,121 @@ export default function Dashboard(props) {
   }, []);
   console.log(url);
   return (
-    <div className="poll-container" style={{ margin: "auto" }}>
+    <div className="dashboard-container">
       <ToastContainer limit={2} />
-      <div className="poll-body" style={{ marginTop: "150px" }}>
-        <form className="register-form" onSubmit={() => shortenUrl()}>
-          <div className="register-form-div">
-            <input
-              type="text"
-              className="input"
-              placeholder="Add new URL"
-              required
-              onChange={(e) => onNewUrlChange(e.target.value)}
-            />
-            <input
-              type="submit"
-              value="Shorten"
-              className="input poll-create-poll-btn"
-              style={{ alignSelf: "center" }}
-            />
-          </div>
-        </form>
-        <div
-          className="poll-body"
-          style={{ width: "100%", flexDirection: "column-reverse", margin: 0 }}
-        >
-          {url.map((item) => (
-            <div key={item._id}>
-              <p>Full: {item.fullUrl}</p>
-              <p>
-                Short:{" "}
-                <a href={`http://localhost:3002/${item.shortUrl}`}>
-                  http://localhost:3002/{item.shortUrl}
-                </a>
-              </p>
-              <p>Clicks:{item.clicks}</p>
-            </div>
-          ))}
+
+      <form className="dashboard-form" onSubmit={() => shortenUrl()}>
+        <div className="dashboard-form-div">
+          <input
+            type="text"
+            className="input"
+            placeholder="Paste long url and shorten it"
+            required
+            onChange={(e) => onNewUrlChange(e.target.value)}
+            style={{
+              marginBottom: 0,
+              borderRadius: 0,
+              border: "none",
+              height: "45px",
+              fontSize: "16px",
+            }}
+          />
+          <input
+            type="submit"
+            value="Shorten"
+            className="input dashboard-shorten-btn"
+            style={{}}
+          />
         </div>
+      </form>
+      <div className="dashboard-link-div">
+        {url.map((item) => (
+          <div key={item._id} className="dashboard-link">
+            <p
+              style={{
+                borderBottomStyle: "solid",
+                borderColor: "#5f5f5f",
+                borderWidth: "2px",
+                width: "100%",
+                paddingBottom: "10px",
+                textAlign: "left",
+                marginBottom: 0,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                fontStyle: "Poppins",
+              }}
+            >
+              <div
+                style={{
+                  background: "#282c34",
+                  padding: "5px",
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              >
+                Full url
+              </div>
+              <div>http://{item.fullUrl}</div>
+            </p>
+            <p
+              style={{
+                marginTop: 0,
+                paddingTop: "10px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <div
+                style={{
+                  background: "orangered",
+                  padding: "5px",
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              >
+                Short url
+              </div>
+              <a
+                href={`http://localhost:3002/${item.shortUrl}`}
+                style={{ color: "grey", textDecoration: "none" }}
+              >
+                http://localhost:3002/{item.shortUrl}
+              </a>
+            </p>
+            <p
+              style={{
+                borderStyle: "solid",
+                borderColor: "#007fff",
+                borderWidth: "2px",
+                padding: "5px",
+                borderRadius: "7px",
+                textAlign: "center",
+                color: "#007fff",
+                display: "flex",
+                fontWeight: "bold",
+                alignSelf: "flex-end",
+              }}
+            >
+              <div
+                style={{
+                  background: "#007fff",
+                  color: "#fff",
+                  padding: "1px",
+                  width: "19px",
+                  height: "19px",
+                  marginRight: "2px",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                {item.clicks}
+              </div>
+              clicks
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
