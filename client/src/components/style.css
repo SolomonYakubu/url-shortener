@@ -75,12 +75,13 @@
 }
 .poll-create-poll-btn {
   margin: 20px;
-  align-self: flex-end;
+
   outline: none;
   background-color: rgb(61, 187, 61);
   color: #fff;
   border: none;
   border-radius: 5px;
+
   padding: 10px;
   font-family: Poppins;
   font-size: 14px;

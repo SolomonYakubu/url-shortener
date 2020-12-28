@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "flatpickr/dist/themes/dark.css";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

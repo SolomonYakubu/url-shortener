@@ -8,20 +8,26 @@ import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
-export default function LogIn() {
+export default function LogIn(props) {
   const history = useHistory();
-  const [number, setNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // const [token, setToken] = useState([]);
-  const onNumberChange = (val) => {
-    setNumber(val);
+  const onEmailChange = (val) => {
+    setEmail(val);
+  };
+  const onPasswordChange = (val) => {
+    setPassword(val);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    props.loading(true);
     try {
       const response = await axios.post(
-        "https://cyon-poll.herokuapp.com/user/log-in",
+        "http://localhost:3002/user/login",
         {
-          mobile_id: number,
+          email,
+          password,
         },
         {
           headers: {
@@ -32,11 +38,11 @@ export default function LogIn() {
       // setToken(response);
       const token = response.data;
       localStorage.setItem("token", JSON.stringify(token));
-      console.log(token);
+      props.loading(false);
       history.push("/poll");
     } catch (error) {
       const err = error.message.split(" ")[5];
-
+      props.loading(false);
       switch (err) {
         case "403":
           toast.error("Mobile number is already registered", {
@@ -79,11 +85,20 @@ export default function LogIn() {
           <h2 style={{ color: "#5f5f5f" }}>Log In</h2>
 
           <input
-            type="number"
+            type="email"
             className="register-name input"
-            placeholder="Mobile Number"
-            value={number}
-            onChange={(e) => onNumberChange(e.target.value)}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => onEmailChange(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="register-name input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => onPasswordChange(e.target.value)}
+            required
           />
           <input
             type="submit"

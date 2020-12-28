@@ -7,25 +7,29 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
 
   const onNameChange = (val) => {
     setName(val);
   };
 
-  const onNumberChange = (val) => {
-    setNumber(val);
+  const onEmailChange = (val) => {
+    setEmail(val);
+  };
+  const onPasswordChange = (val) => {
+    setPassword(val);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://cyon-poll.herokuapp.com/user/register",
+        "http://localhost:3002/user/register",
         {
-          name: name,
-          mobile_id: number,
+          name,
+          email,
+          password,
         },
         {
           headers: {
@@ -65,7 +69,6 @@ export default function Register() {
     }
   };
 
-  console.log(name, number);
   return (
     <div className="register-container">
       <ToastContainer limit={1} />
@@ -84,12 +87,21 @@ export default function Register() {
             onChange={(e) => onNameChange(e.target.value)}
             required
           />
+
           <input
-            type="number"
+            type="email"
             className="register-name input"
-            placeholder="Mobile Number"
-            value={number}
-            onChange={(e) => onNumberChange(e.target.value)}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => onEmailChange(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="register-name input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => onPasswordChange(e.target.value)}
             required
           />
           <input

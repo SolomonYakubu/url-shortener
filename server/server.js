@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 const userRoutes = require("./routes/user");
 const urlRoutes = require("./routes/url");
+const path = require("path");
 mongoose
   .connect("mongodb://localhost/url-shortner", {
     useNewUrlParser: true,
@@ -15,11 +17,13 @@ mongoose
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/", urlRoutes);
-app.get("/", (req, res) => {
-  res.render("index");
+app.use(express.static(path.join(__dirname, "build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 const port = process.env.port || 3002;
 app.listen(port, () => console.log(`App is running at port ${port}`));
