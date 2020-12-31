@@ -13,6 +13,10 @@ const urlSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   user_id: String,
 });
 

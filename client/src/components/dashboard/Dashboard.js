@@ -3,8 +3,9 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Ring } from "awesome-react-spinners";
 
+import ShortenUrl from "./ShortenUrl";
+import Links from "./Links";
 import "../style.css";
 
 export default function Dashboard(props) {
@@ -23,7 +24,7 @@ export default function Dashboard(props) {
     props.loading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3002/user/${token.id}`,
+        `https://lincut.herokuapp.com/user/${token.id}`,
         {
           headers: {
             Authorization: `Bearer ${token.token}`,
@@ -64,13 +65,17 @@ export default function Dashboard(props) {
         hideProgressBar: "false",
       });
     }
+    const modifiedUrl =
+      newUrl.split(":")[0] !== "http" && newUrl.split(":")[0] !== "https"
+        ? `http://${newUrl}`
+        : `${newUrl}`;
     props.loading(true);
 
     try {
       const response = await axios.post(
-        `http://localhost:3002/${token.id}`,
+        `https://lincut.herokuapp.com/${token.id}`,
         {
-          fullUrl: newUrl,
+          fullUrl: modifiedUrl,
         },
         {
           headers: {
@@ -78,7 +83,7 @@ export default function Dashboard(props) {
           },
         }
       );
-
+      setNewUrl("");
       fetchData();
       props.loading(false);
     } catch (error) {
@@ -113,124 +118,17 @@ export default function Dashboard(props) {
 
     //eslint-disable-next-line
   }, []);
-  console.log(url);
+  console.log(newUrl);
   return (
     <div className="dashboard-container">
       <ToastContainer limit={2} />
 
-      <form className="dashboard-form" onSubmit={() => shortenUrl()}>
-        <div className="dashboard-form-div">
-          <input
-            type="text"
-            className="input"
-            placeholder="Paste long url and shorten it"
-            required
-            onChange={(e) => onNewUrlChange(e.target.value)}
-            style={{
-              marginBottom: 0,
-              borderRadius: 0,
-              border: "none",
-              height: "45px",
-              fontSize: "16px",
-            }}
-          />
-          <input
-            type="submit"
-            value="Shorten"
-            className="input dashboard-shorten-btn"
-            style={{}}
-          />
-        </div>
-      </form>
-      <div className="dashboard-link-div">
-        {url.map((item) => (
-          <div key={item._id} className="dashboard-link">
-            <p
-              style={{
-                borderBottomStyle: "solid",
-                borderColor: "#5f5f5f",
-                borderWidth: "2px",
-                width: "100%",
-                paddingBottom: "10px",
-                textAlign: "left",
-                marginBottom: 0,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                fontStyle: "Poppins",
-              }}
-            >
-              <div
-                style={{
-                  background: "#282c34",
-                  padding: "5px",
-                  color: "#fff",
-                  fontWeight: "bold",
-                }}
-              >
-                Full url
-              </div>
-              <div>http://{item.fullUrl}</div>
-            </p>
-            <p
-              style={{
-                marginTop: 0,
-                paddingTop: "10px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-              }}
-            >
-              <div
-                style={{
-                  background: "orangered",
-                  padding: "5px",
-                  color: "#fff",
-                  fontWeight: "bold",
-                }}
-              >
-                Short url
-              </div>
-              <a
-                href={`http://localhost:3002/${item.shortUrl}`}
-                style={{ color: "grey", textDecoration: "none" }}
-              >
-                http://localhost:3002/{item.shortUrl}
-              </a>
-            </p>
-            <p
-              style={{
-                borderStyle: "solid",
-                borderColor: "#007fff",
-                borderWidth: "2px",
-                padding: "5px",
-                borderRadius: "7px",
-                textAlign: "center",
-                color: "#007fff",
-                display: "flex",
-                fontWeight: "bold",
-                alignSelf: "flex-end",
-              }}
-            >
-              <div
-                style={{
-                  background: "#007fff",
-                  color: "#fff",
-                  padding: "1px",
-                  width: "19px",
-                  height: "19px",
-                  marginRight: "2px",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                {item.clicks}
-              </div>
-              clicks
-            </p>
-          </div>
-        ))}
-      </div>
+      <ShortenUrl
+        newUrl={newUrl}
+        shortenUrl={shortenUrl}
+        onNewUrlChange={onNewUrlChange}
+      />
+      <Links url={url} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Register() {
+export default function Register(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,10 +22,11 @@ export default function Register() {
     setPassword(val);
   };
   const handleSubmit = async (e) => {
+    props.loading(true);
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3002/user/register",
+        "https://lincut.herokuapp.com/user/register",
         {
           name,
           email,
@@ -38,10 +39,11 @@ export default function Register() {
         }
       );
       history.push("/");
+      props.loading(false);
       console.log(response.data);
     } catch (error) {
       const err = error.message.split(" ")[5];
-
+      props.loading(false);
       switch (err) {
         case "403":
           toast.error("Mobile number is already registered", {

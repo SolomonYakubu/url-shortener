@@ -24,7 +24,7 @@ export default function LogIn(props) {
     props.loading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3002/user/login",
+        "https://lincut.herokuapp.com/user/login",
         {
           email,
           password,
@@ -35,11 +35,12 @@ export default function LogIn(props) {
           },
         }
       );
-      // setToken(response);
-      const token = response.data;
-      localStorage.setItem("token", JSON.stringify(token));
-      props.loading(false);
-      history.push("/poll");
+      if (response.status === 200) {
+        const token = response.data;
+        localStorage.setItem("token", JSON.stringify(token));
+        props.loading(false);
+        history.push("/dashboard");
+      }
     } catch (error) {
       const err = error.message.split(" ")[5];
       props.loading(false);

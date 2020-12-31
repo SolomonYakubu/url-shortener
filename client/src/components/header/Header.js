@@ -1,10 +1,28 @@
-import React from "react";
-
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import ToolbarComponent from "./Toolbar";
+import DrawerComponent from "./Drawer";
 
 export default function Header() {
-  const token = JSON.parse(localStorage.getItem("token"));
-  console.log(token);
-  const history = useHistory();
-  return <></>;
+  const [state, setState] = useState(false);
+
+  const toggleDrawer = () => {
+    setState(false);
+  };
+
+  const openDrawer = () => {
+    setState(true);
+  };
+
+  return (
+    <>
+      <AppBar position="sticky">
+        <ToolbarComponent
+          openDrawerHandler={openDrawer}
+          toggleDrawerHandler={toggleDrawer}
+        />
+        <DrawerComponent left={state} toggleDrawerHandler={toggleDrawer} />
+      </AppBar>
+    </>
+  );
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import { Ripple } from "awesome-react-spinners";
-export default function Loader() {
+import Loader from "react-loader-spinner";
+export default function Spinner() {
   return (
     <>
-      <Ripple />
+      <Loader type="Oval" color="#007fff" height={30} width={100} />
     </>
   );
 }

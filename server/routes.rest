@@ -1,23 +1,23 @@
-POST http://localhost:3002/user/register
+POST https://lincut.herokuapp.com/user/register
 Content-Type: application/json
 
 
 {
     "name":"Solomon",
     "password":"solomon",
-    "email":"sol@gmail.com"
+    "email":"sa@gmail.com"
 }
 ###
-POST http://localhost:3002/user/login
+POST https://lincut.herokuapp.com/user/login
 Content-Type: application/json
 
 
 {
-    "name":"Solomon",
-    "password":"solomon"
+        "email":"solo@gmail.com",
+    "password":"aaaa"
 }
 ###
-PATCH http://localhost:3002/user/5fe24aab5aff091f18eebae4
+PATCH https://lincut.herokuapp.com/user/5fe24aab5aff091f18eebae4
 Content-Type: application/json
 
 
@@ -26,23 +26,26 @@ Content-Type: application/json
 }
 
 ###
-GET  http://localhost:3002/user/5fe24aab5aff091f18eebae4
+GET  https://lincut.herokuapp.com/user/5fe24aab5aff091f18eebae4
 ###
-GET  http://localhost:3002/user/url/5fe24aab5aff091f18eebae4
+GET  https://lincut.herokuapp.com/user/url/5fe24aab5aff091f18eebae4
 ###
-POST http://localhost:3002/5fe24aab5aff091f18eebae4
+POST https://lincut.herokuapp.com/5fe65776a879830e9cf48494
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTY1Nzc2YTg3OTgzMGU5Y2Y0ODQ5NCIsImlhdCI6MTYwOTE4OTkzOCwiZXhwIjoxNjA5MTkzNTM4fQ.nk7VNCnESVmX5br6xGin09FMq3LaPu4V1puCwXd8cJ4
 
 
 {
-    "fullUrl":"www.google.com"
+    "fullUrl":"www.youtube.com"
     
 }
 ###
-GET http://localhost:3002/url/90543126fb
+GET https://lincut.herokuapp.com/user/5fe65776a879830e9cf48494
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTY1Nzc2YTg3OTgzMGU5Y2Y0ODQ5NCIsImlhdCI6MTYwOTE4OTkzOCwiZXhwIjoxNjA5MTkzNTM4fQ.nk7VNCnESVmX5br6xGin09FMq3LaPu4V1puCwXd8cJ4
+
 
 ###
-PATCH  http://localhost:3002/5fe256cdaec298238857049e
+PATCH  https://lincut.herokuapp.com/5fe256cdaec298238857049e
 Content-Type: application/json
 
 
@@ -52,4 +55,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3002/5fe256cdaec298238857049e
+DELETE https://lincut.herokuapp.com/5fe256cdaec298238857049e

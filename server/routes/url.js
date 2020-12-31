@@ -26,7 +26,7 @@ router.post("/:user_id", verifyToken, async (req, res) => {
     user.url = [...user.url, newUrl._id];
     user.save();
 
-    res.sendStatus(201);
+    res.status(201).json(newUrl);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -42,7 +42,7 @@ router.get("/:shortUrl", async (req, res) => {
     const fullUrl = url.fullUrl;
     url.clicks++;
     url.save();
-    res.redirect(`http://${fullUrl}`);
+    res.redirect(`${fullUrl}`);
   } catch (error) {
     res.json({ message: error.message });
   }

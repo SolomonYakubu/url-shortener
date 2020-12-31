@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -6,7 +7,7 @@ const userRoutes = require("./routes/user");
 const urlRoutes = require("./routes/url");
 const path = require("path");
 mongoose
-  .connect("mongodb://localhost/url-shortner", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -15,8 +16,6 @@ mongoose
   .then(() => console.log("Connected to db"))
   .catch((err) => console.log(err));
 
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRoutes);
@@ -25,5 +24,5 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-const port = process.env.port || 3002;
+const port = process.env.PORT || 3002;
 app.listen(port, () => console.log(`App is running at port ${port}`));
