@@ -3,20 +3,17 @@ import { fade, withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+
 import MoreIcon from "@material-ui/icons/MoreVert";
-import ExitToApp from "@material-ui/icons/ExitToApp";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   faSignOutAlt,
-  faUserAlt,
   faSignInAlt,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -92,25 +89,12 @@ function ToolbarComponent(props) {
     MobileMoreAnchorEl: false,
   });
 
-  const handleProfileMenuOpen = (event) => {
-    setState((prevState) => {
-      return { ...prevState, achorEl: event.currentTarget };
-    });
-  };
-
   const handleMobileMenuClose = () => {
     setState((prevState) => {
       return {
         ...prevState,
         mobileMoreAnchorEl: null,
       };
-    });
-  };
-
-  const handleMenuClose = () => {
-    setState({
-      achorEl: null,
-      mobileMoreAnchorEl: null,
     });
   };
 
@@ -121,24 +105,8 @@ function ToolbarComponent(props) {
   };
 
   const { classes } = props;
-  const isMenuOpen = Boolean(state.anchorEl);
-  const isMobileMenuOpen = Boolean(state.mobileMoreAnchorEl);
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={state.anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
+  const isMobileMenuOpen = Boolean(state.mobileMoreAnchorEl);
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -150,15 +118,8 @@ function ToolbarComponent(props) {
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      onClick={handleMobileMenuClose}
     >
-      {localStorage.getItem("token") && (
-        <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            <FontAwesomeIcon icon={faUserAlt} />
-          </IconButton>
-          <p onClick={() => history.push(`/profile`)}>Profile</p>
-        </MenuItem>
-      )}
       {localStorage.getItem("token") ? null : (
         <MenuItem>
           <IconButton aria-label="show 11 new notifications" color="inherit">
@@ -167,7 +128,7 @@ function ToolbarComponent(props) {
           <p onClick={() => history.push("/register")}>Register</p>
         </MenuItem>
       )}
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleMobileMenuOpen}>
         {localStorage.getItem("token") ? (
           <>
             <IconButton
@@ -232,31 +193,71 @@ function ToolbarComponent(props) {
           <MenuIcon />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          LinCut
+          Lincut
         </Typography>
 
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton aria-label="show 17 new notifications" color="inherit">
-            <Badge badgeContent={17} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            onClick={handleProfileMenuOpen}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+          {localStorage.getItem("token") ? null : (
+            <MenuItem>
+              <IconButton
+                aria-label="show 11 new notifications"
+                color="inherit"
+              >
+                <FontAwesomeIcon icon={faUserPlus} />
+              </IconButton>
+              <p onClick={() => history.push("/register")}>Register</p>
+            </MenuItem>
+          )}
+          <MenuItem>
+            {localStorage.getItem("token") ? (
+              <>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <FontAwesomeIcon icon={faSignOutAlt} />
+                </IconButton>
+                <p
+                  onClick={() => {
+                    swal({
+                      text: "Are you sure you wish to log out?",
+                      icon: "warning",
+                      buttons: { Yes: "Yes", No: "No" },
+                    }).then((value) => {
+                      if (value === "Yes") {
+                        localStorage.clear();
+                        history.push("/");
+                      }
+                    });
+                  }}
+                >
+                  Log Out
+                </p>
+              </>
+            ) : (
+              <>
+                {" "}
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <FontAwesomeIcon icon={faSignInAlt} />
+                </IconButton>
+                <p
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  Log In
+                </p>
+              </>
+            )}
+          </MenuItem>
         </div>
         <div className={classes.sectionMobile}>
           <IconButton
@@ -272,7 +273,6 @@ function ToolbarComponent(props) {
       </Toolbar>
 
       {renderMobileMenu}
-      {renderMenu}
     </div>
   );
 }

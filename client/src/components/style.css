@@ -9,6 +9,10 @@
   align-items: center;
   height: 100vh;
 }
+.register-container.login {
+  height: auto;
+  padding-bottom: 40px;
+}
 .register-form-div {
   display: flex;
   flex-direction: column;
@@ -19,6 +23,23 @@
   background: #fff;
   width: 90%;
   padding: 30px;
+  border-radius: 10px;
+}
+.register-form.login {
+  height: 50% !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  width: 100%;
+}
+.login-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: orangered;
+  width: 90%;
+  height: 500px;
   border-radius: 10px;
 }
 .input {
@@ -36,7 +57,7 @@
 }
 .register-button {
   background: orangered;
-
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   color: #fff;

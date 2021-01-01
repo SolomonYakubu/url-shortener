@@ -10,6 +10,7 @@ import "../style.css";
 
 export default function Dashboard(props) {
   const token = JSON.parse(localStorage.getItem("token"));
+  //eslint-disable-next-line
   const [user, setUser] = useState([]);
   const [url, setUrl] = useState([]);
   const [newUrl, setNewUrl] = useState("");
@@ -72,7 +73,7 @@ export default function Dashboard(props) {
     props.loading(true);
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `https://lincut.herokuapp.com/${token.id}`,
         {
           fullUrl: modifiedUrl,
@@ -98,7 +99,10 @@ export default function Dashboard(props) {
             autoClose: 3000,
             hideProgressBar: "false",
           });
-          setTimeout(() => history.push("/"), 3000);
+          setTimeout(() => {
+            history.push("/");
+            localStorage.clear();
+          }, 3000);
           break;
 
         default:

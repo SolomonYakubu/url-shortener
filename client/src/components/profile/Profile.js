@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import { Ring } from "awesome-react-spinners";
 import "../style.css";
 const Profile = (props) => {
   const history = useHistory();
@@ -45,7 +44,10 @@ const Profile = (props) => {
               autoClose: 3000,
               hideProgressBar: "false",
             });
-            setTimeout(() => history.push("/"), 3000);
+            setTimeout(() => {
+              history.push("/");
+              localStorage.clear();
+            }, 3000);
             break;
 
           default:
@@ -60,8 +62,6 @@ const Profile = (props) => {
     getData();
     //eslint-disable-next-line
   }, []);
-
-  const deleteCandidate = async (val) => {};
 
   return (
     <div className="profile-container">

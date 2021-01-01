@@ -5,7 +5,8 @@ import "../style.css";
 import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import TypingEffect from "react-typing-effect";
+import businessWoman from "./illustrations/business-woman.svg";
 import axios from "axios";
 
 export default function LogIn(props) {
@@ -45,22 +46,15 @@ export default function LogIn(props) {
       const err = error.message.split(" ")[5];
       props.loading(false);
       switch (err) {
-        case "403":
-          toast.error("Mobile number is already registered", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: "false",
-          });
-          break;
         case "406":
-          toast.error("Mobile number not valid", {
+          toast.error("Incorrect password", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: "false",
           });
           break;
         case "404":
-          toast.error("Mobile number not registered", {
+          toast.error("Account not yet registered", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: "false",
@@ -79,41 +73,72 @@ export default function LogIn(props) {
   };
 
   return (
-    <div className="register-container">
+    <div className="register-container login">
       <ToastContainer limit={1} />
-      <form className="register-form" onSubmit={handleSubmit.bind(this)}>
-        <div className="register-form-div">
-          <h2 style={{ color: "#5f5f5f" }}>Log In</h2>
-
-          <input
-            type="email"
-            className="register-name input"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => onEmailChange(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="register-name input"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => onPasswordChange(e.target.value)}
-            required
-          />
-          <input
-            type="submit"
-            value="Log In"
-            className="register-button input"
-          />
+      <div
+        style={{
+          color: "#fff",
+          fontFamily: "Audiowide",
+          fontSize: "30px",
+          marginBottom: "10px",
+          marginTop: "30px",
+        }}
+      >
+        <TypingEffect
+          text={["Lincut..", "Fast..", "Reliable..", "Simple.."]}
+          speed={50}
+          eraseDelay={0}
+        />
+      </div>
+      <div className="login-div">
+        <div
+          style={{
+            position: "absolute",
+            top: "49%",
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "#fff",
+            fontFamily: "Audiowide",
+          }}
+        >
+          Log In
         </div>
-        <p style={{ fontSize: "12px" }}>
-          Not yet registered?{" "}
-          <Link to="/register" style={{ color: "grey" }}>
-            Register here
-          </Link>
-        </p>
-      </form>
+        <img src={businessWoman} alt="illustration" style={{ height: "50%" }} />
+        <form
+          className="register-form login"
+          onSubmit={handleSubmit.bind(this)}
+        >
+          <div className="register-form-div">
+            <input
+              type="email"
+              className="register-name input"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => onEmailChange(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="register-name input"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => onPasswordChange(e.target.value)}
+              required
+            />
+            <input
+              type="submit"
+              value="Log In"
+              className="register-button input"
+            />
+          </div>
+          <p style={{ fontSize: "12px" }}>
+            Not yet registered?{" "}
+            <Link to="/register" style={{ color: "grey" }}>
+              Register here
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

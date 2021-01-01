@@ -27,7 +27,6 @@ router.get("/:id", verifyToken, async (req, res) => {
 
 //create a new user
 router.post("/register", async (req, res) => {
-  const name = req.body.name;
   const password = req.body.password;
   const email = req.body.email;
   try {
@@ -39,7 +38,6 @@ router.post("/register", async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
-      name,
       email,
       password: hashedPassword,
     });

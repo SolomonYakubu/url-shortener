@@ -8,7 +8,7 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Loader from "./components/loader/Loader";
-
+import Home from "./components/home/Home";
 import "./App.css";
 
 function App() {
@@ -38,6 +38,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <LogIn loading={loading} />
+          </Route>
+          <Route path="/Home">
+            <Home loading={loading} />
           </Route>
           <Route path="/register">
             <Register loading={loading} />

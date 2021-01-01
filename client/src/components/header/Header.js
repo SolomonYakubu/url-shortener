@@ -16,10 +16,11 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar position="sticky" style={{ background: "#282c34" }}>
         <ToolbarComponent
           openDrawerHandler={openDrawer}
           toggleDrawerHandler={toggleDrawer}
+          left={state}
         />
         <DrawerComponent left={state} toggleDrawerHandler={toggleDrawer} />
       </AppBar>

@@ -1,15 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-} from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+
 import { AccountCircle, Edit, People } from "@material-ui/icons";
 
 const styles = (theme) => ({
@@ -22,15 +16,9 @@ const styles = (theme) => ({
 });
 
 function DrawerComponent(props) {
-  const [state, setState] = useState(false);
   const history = useHistory();
   const { classes } = props;
-  const linkPush = useCallback(
-    (val) => {
-      history.push(`/${val}`);
-    },
-    [history]
-  );
+
   const execute = (text) => {
     switch (text) {
       case "Profile":
@@ -48,12 +36,7 @@ function DrawerComponent(props) {
   };
 
   const sideList = (side) => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={props.toggleDrawerHandler}
-      onKeyDown={props.toggleDrawerHandler}
-    >
+    <div className={classes.list} role="presentation">
       <List>
         {["Profile", "Edit Links", "About Us"].map((text, index) => (
           <ListItem button key={text} onClick={() => execute(text)}>
@@ -76,7 +59,11 @@ function DrawerComponent(props) {
   );
 
   return (
-    <Drawer open={props.left} onClose={props.toggleDrawerHandler}>
+    <Drawer
+      open={props.left}
+      onClose={props.toggleDrawerHandler}
+      onClick={props.toggleDrawerHandler}
+    >
       {sideList("left")}
     </Drawer>
   );
