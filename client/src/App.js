@@ -20,21 +20,9 @@ function App() {
     <div className="App">
       <Router>
         <Header />
-        <div
-          style={{
-            position: "fixed",
-            display: "flex",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "60px",
-            marginBottom: "60px",
 
-            color: "#000",
-          }}
-        >
-          {isLoading ? <Loader /> : null}
-        </div>
+        {isLoading ? <Loader /> : null}
+
         <Switch>
           <Route exact path="/">
             <LogIn loading={loading} />

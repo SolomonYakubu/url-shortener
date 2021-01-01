@@ -3,7 +3,7 @@ import React from "react";
 export default function ShortenUrl(props) {
   return (
     <>
-      <form className="dashboard-form" onSubmit={() => props.shortenUrl()}>
+      <form className="dashboard-form" onSubmit={props.shortenUrl.bind(this)}>
         <div className="dashboard-form-div">
           <input
             type="text"

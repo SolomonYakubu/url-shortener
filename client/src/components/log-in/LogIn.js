@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import "../style.css";
@@ -71,7 +71,12 @@ export default function LogIn(props) {
       console.log(err);
     }
   };
-
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      history.push("/dashboard");
+    }
+    //eslint-disable-next-line
+  }, []);
   return (
     <div className="register-container login">
       <ToastContainer limit={1} />
@@ -131,7 +136,7 @@ export default function LogIn(props) {
               className="register-button input"
             />
           </div>
-          <p style={{ fontSize: "12px" }}>
+          <p style={{ fontSize: "12px", paddingBottom: "30px" }}>
             Not yet registered?{" "}
             <Link to="/register" style={{ color: "grey" }}>
               Register here
