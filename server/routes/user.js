@@ -97,9 +97,7 @@ router.patch("/:id", verifyToken, async (req, res) => {
         res.json({ message: error.message });
       }
     } else {
-      const newUser = await user.updateOne({ $set: { name: data.name } });
-
-      res.json();
+      res.sendStatus(400);
     }
   } catch (error) {
     res.json({ message: error.message });
