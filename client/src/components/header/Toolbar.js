@@ -25,13 +25,14 @@ const styles = (theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-
-    // },
-    // title: {
-    //   display: "none",
-    //   [theme.breakpoints.up("sm")]: {
-    //     display: "block",
-    //   },
+  },
+  title: {
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+    fontFamily: "Audiowide",
+    marginLeft: "20px",
+    fontSize: "25px",
   },
   search: {
     position: "relative",
@@ -144,7 +145,7 @@ function ToolbarComponent(props) {
                 swal({
                   text: "Are you sure you wish to log out?",
                   icon: "warning",
-                  buttons: { Yes: "Yes", No: "No" },
+                  buttons: { Yes: "Yes", cancel: "No" },
                 }).then((value) => {
                   if (value === "Yes") {
                     localStorage.clear();

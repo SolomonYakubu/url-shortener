@@ -13,7 +13,7 @@ Content-Type: application/json
 
 
 {
-        "email":"solo@gmail.com",
+        "email":"king@yahoo.com",
     "password":"aaaa"
 }
 ###
@@ -55,4 +55,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE https://lincut.herokuapp.com/5fe256cdaec298238857049e
+DELETE https://lincut.herokuapp.com/user/5ff1dd4cd2e5eb0004e7ecdc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjFkZDRjZDJlNWViMDAwNGU3ZWNkYyIsImlhdCI6MTYwOTY5MTY3NCwiZXhwIjoxNjA5Njk1Mjc0fQ.8GLWl1UZbmZbOgkFwhv7bbRSnyGsvSua8TGtOEM6-Cc
+Content-Type: application/json
+
+{
+    "password":"aaaa"
+}

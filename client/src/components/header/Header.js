@@ -16,7 +16,10 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position="sticky" style={{ background: "#282c34" }}>
+      <AppBar
+        position="sticky"
+        style={{ background: "#282c34", fontFamily: "Audiowide" }}
+      >
         <ToolbarComponent
           openDrawerHandler={openDrawer}
           toggleDrawerHandler={toggleDrawer}

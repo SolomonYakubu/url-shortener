@@ -10,12 +10,13 @@ const verifyToken = require("../auth/userAuth");
 //get user by id
 router.get("/:id", verifyToken, async (req, res) => {
   try {
+    if (!(await User.findById(req.params.id))) {
+      return res.sendStatus(404);
+    }
     const user = await (await User.findById(req.params.id))
       .populate("url")
       .execPopulate();
-    if (!user) {
-      return res.sendStatus(404);
-    }
+
     if (req.data.id != user._id) {
       return res.sendStatus(403);
     }
@@ -73,10 +74,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//correct user details
+//correct password
 
 router.patch("/:id", verifyToken, async (req, res) => {
-  const data = req.body;
+  const { oldPassword, newPassword } = req.body;
   if (req.data.id != req.params.id) {
     return res.sendStatus(403);
   }
@@ -85,8 +86,9 @@ router.patch("/:id", verifyToken, async (req, res) => {
     if (!user) {
       res.sendStatus(404);
     }
-    if (data.password) {
-      const hashedPassword = await bcrypt.hash(data.password, 10);
+    const check = await bcrypt.compare(oldPassword, user.password);
+    if (check) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
       try {
         const newUser = await user.updateOne({
           $set: { password: hashedPassword },
@@ -97,7 +99,7 @@ router.patch("/:id", verifyToken, async (req, res) => {
         res.json({ message: error.message });
       }
     } else {
-      res.sendStatus(400);
+      res.sendStatus(406);
     }
   } catch (error) {
     res.json({ message: error.message });
@@ -106,17 +108,27 @@ router.patch("/:id", verifyToken, async (req, res) => {
 
 //delete a user
 router.delete("/:id", verifyToken, async (req, res) => {
+  const password = req.body.password;
   try {
     const user = await User.findOne({ _id: req.params.id });
 
     if (!user) {
       return res.sendStatus(404);
     }
+    if (!password) {
+      return res.sendStatus(406);
+    }
     if (req.data.id != req.params.id) {
       return res.sendStatus(403);
     }
-    await user.delete();
-    res.json(user);
+    const check = await bcrypt.compare(password, user.password);
+    if (check) {
+      await user.delete();
+
+      res.json();
+    } else {
+      res.sendStatus(406);
+    }
   } catch (error) {
     res.json({ message: error.message });
   }
