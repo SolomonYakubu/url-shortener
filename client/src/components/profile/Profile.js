@@ -68,7 +68,9 @@ const Profile = (props) => {
             }, 3000);
             break;
           case "404":
+            localStorage.clear();
             history.push("/");
+
             break;
           default:
             toast.error("Network error", {

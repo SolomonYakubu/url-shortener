@@ -4,7 +4,7 @@ import Drawer from "@material-ui/core/Drawer";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import { AccountCircle, Edit, People } from "@material-ui/icons";
+import { AccountCircle, Edit, People, Dashboard } from "@material-ui/icons";
 
 const styles = (theme) => ({
   list: {
@@ -21,12 +21,16 @@ function DrawerComponent(props) {
 
   const execute = (text) => {
     switch (text) {
+      case "Dashboard":
+        history.push(`/Dashboard`);
+
+        break;
       case "Profile":
         history.push(`/profile`);
 
         break;
       case "Edit Links":
-        alert("Edit links");
+        history.push(`/edit`);
 
         break;
       default:
@@ -38,22 +42,26 @@ function DrawerComponent(props) {
   const sideList = (side) => (
     <div className={classes.list} role="presentation">
       <List>
-        {["Profile", "Edit Links", "About Us"].map((text, index) => (
-          <ListItem button key={text} onClick={() => execute(text)}>
-            <ListItemIcon>
-              {text !== "Profile" ? (
-                text === "About Us" ? (
-                  <People />
+        {["Dashboard", "Profile", "Edit Links", "About Us"].map(
+          (text, index) => (
+            <ListItem button key={text} onClick={() => execute(text)}>
+              <ListItemIcon>
+                {text === "Dashboard" ? (
+                  <Dashboard />
+                ) : text !== "Profile" ? (
+                  text === "About Us" ? (
+                    <People />
+                  ) : (
+                    <Edit />
+                  )
                 ) : (
-                  <Edit />
-                )
-              ) : (
-                <AccountCircle />
-              )}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+                  <AccountCircle />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          )
+        )}
       </List>
     </div>
   );

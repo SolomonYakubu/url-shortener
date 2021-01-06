@@ -1,14 +1,14 @@
-POST https://lincut.herokuapp.com/user/register
+POST http://localhost:3002/user/register
 Content-Type: application/json
 
 
 {
     "name":"Solomon",
-    "password":"solomon",
-    "email":"sa@gmail.com"
+    "password":"elsa",
+    "email":"elsa@gmail.com"
 }
 ###
-POST https://lincut.herokuapp.com/user/login
+POST http://localhost:3002/user/login
 Content-Type: application/json
 
 
@@ -17,7 +17,7 @@ Content-Type: application/json
     "password":"aaaa"
 }
 ###
-PATCH https://lincut.herokuapp.com/user/5fe24aab5aff091f18eebae4
+PATCH http://localhost:3002/user/5fe24aab5aff091f18eebae4
 Content-Type: application/json
 
 
@@ -28,24 +28,24 @@ Content-Type: application/json
 ###
 GET  http://localhost:3002/
 ###
-GET  https://lincut.herokuapp.com/user/url/5fe24aab5aff091f18eebae4
+GET  http://localhost:3002/user/url/5fe24aab5aff091f18eebae4
 ###
-POST http://localhost:3002/5fe65776a879830e9cf48494
+POST http://localhost:3002/5ff25ce0b3502d00040f0912
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTY1Nzc2YTg3OTgzMGU5Y2Y0ODQ5NCIsImlhdCI6MTYwOTE4OTkzOCwiZXhwIjoxNjA5MTkzNTM4fQ.nk7VNCnESVmX5br6xGin09FMq3LaPu4V1puCwXd8cJ4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjI1Y2UwYjM1MDJkMDAwNDBmMDkxMiIsImlhdCI6MTYwOTk0NDg1NCwiZXhwIjoxNjA5OTQ4NDU0fQ.9iDES9BMxH2tXn6pcxr1VTD-1m7V6sdHh7KDVePr0QA
 
 
 {
-    "fullUrl":"www.youtube.com"
+    "fullUrl":"google.com"
     
 }
 ###
-GET https://lincut.herokuapp.com/user/5fe65776a879830e9cf48494
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTY1Nzc2YTg3OTgzMGU5Y2Y0ODQ5NCIsImlhdCI6MTYwOTE4OTkzOCwiZXhwIjoxNjA5MTkzNTM4fQ.nk7VNCnESVmX5br6xGin09FMq3LaPu4V1puCwXd8cJ4
+GET http://localhost:3002/user/5ff2528634ecb600049cd383
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjI1Mjg2MzRlY2I2MDAwNDljZDM4MyIsImlhdCI6MTYwOTcxNjM4NCwiZXhwIjoxNjA5NzE5OTg0fQ.rXcte4Ej7NFCB9kFdPC_GhSfnbmHwTFKjzFT1HHtNHI
 
 
 ###
-PATCH  https://lincut.herokuapp.com/5fe256cdaec298238857049e
+PATCH  http://localhost:3002/5fe256cdaec298238857049e
 Content-Type: application/json
 
 
@@ -55,7 +55,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE https://lincut.herokuapp.com/user/5ff1dd4cd2e5eb0004e7ecdc
+DELETE http://localhost:3002/user/5ff1dd4cd2e5eb0004e7ecdc
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjFkZDRjZDJlNWViMDAwNGU3ZWNkYyIsImlhdCI6MTYwOTY5MTY3NCwiZXhwIjoxNjA5Njk1Mjc0fQ.8GLWl1UZbmZbOgkFwhv7bbRSnyGsvSua8TGtOEM6-Cc
 Content-Type: application/json
 

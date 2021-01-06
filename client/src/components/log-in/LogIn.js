@@ -108,7 +108,11 @@ export default function LogIn(props) {
         >
           Log In
         </div>
-        <img src={businessWoman} alt="illustration" style={{ height: "50%" }} />
+        <img
+          src={businessWoman}
+          alt="illustration"
+          style={{ height: "250px" }}
+        />
         <form
           className="register-form login"
           onSubmit={handleSubmit.bind(this)}

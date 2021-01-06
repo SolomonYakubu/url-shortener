@@ -9,6 +9,7 @@ import Header from "./components/header/Header";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Loader from "./components/loader/Loader";
 import Home from "./components/home/Home";
+import Edit from "./components/Edit/Edit";
 import "./App.css";
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/profile">
             <Profile loading={loading} />
+          </Route>
+          <Route path="/edit">
+            <Edit loading={loading} />
           </Route>
           <Route path="/*">
             <Error />

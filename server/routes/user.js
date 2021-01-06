@@ -34,6 +34,9 @@ router.post("/register", async (req, res) => {
     if (!validator.validate(email)) {
       return res.sendStatus(400);
     }
+    if (password == 0 || password.length < 6) {
+      return res.sendStatus(400);
+    }
     if (await User.findOne({ email })) {
       return res.sendStatus(406);
     }

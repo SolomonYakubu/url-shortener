@@ -26,12 +26,14 @@
   border-radius: 10px;
 }
 .register-form.login {
-  height: 50% !important;
+  height: 260px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   padding: 30px;
+
   width: 100%;
 }
+
 .login-div {
   display: flex;
   flex-direction: column;
@@ -39,7 +41,7 @@
   align-items: center;
   background: orangered;
   width: 90%;
-  height: 500px;
+  height: fit-content;
   border-radius: 10px;
 }
 .input {
@@ -144,6 +146,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin-bottom: 40px;
 }
 .profile-div {
   background-color: #fff;

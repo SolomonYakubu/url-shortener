@@ -9,6 +9,9 @@ const verifyToken = require("../auth/userAuth");
 router.post("/:user_id", verifyToken, async (req, res) => {
   const fullUrl = req.body.fullUrl;
   const user_id = req.params.user_id;
+  if (fullUrl == "" || fullUrl == 0 || !fullUrl.split(".")[1]) {
+    return res.sendStatus(400);
+  }
   const shortUrl = crypto.randomBytes(5).toString("hex");
   try {
     if (req.data.id != user_id) {
