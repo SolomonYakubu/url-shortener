@@ -12,7 +12,7 @@ import "../style.css";
 export default function Dashboard(props) {
   const token = JSON.parse(localStorage.getItem("token"));
   //eslint-disable-next-line
-  const [user, setUser] = useState([]);
+
   const [url, setUrl] = useState([]);
   const [newUrl, setNewUrl] = useState("");
   const [exist, setExist] = useState(true);
@@ -37,13 +37,14 @@ export default function Dashboard(props) {
       //eslint-disable-next-line
       if (response.data.url == 0) {
         props.loading(false);
+        localStorage.removeItem("url");
         return setExist(false);
       } else {
         setExist(true);
       }
-      setUser(response.data);
-      setUrl([...response.data.url]);
 
+      localStorage.setItem("url", JSON.stringify(response.data.url));
+      setUrl([...response.data.url]);
       props.loading(false);
     } catch (error) {
       const err = error.message.split(" ")[5];
@@ -119,7 +120,14 @@ export default function Dashboard(props) {
               localStorage.clear();
             }, 3000);
             break;
+          case "400":
+            toast.error("Link not valid", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: "false",
+            });
 
+            break;
           default:
             toast.error("Network error", {
               position: "top-right",
@@ -134,6 +142,10 @@ export default function Dashboard(props) {
   useEffect(() => {
     if (token === null) {
       history.push("/");
+    }
+
+    if (localStorage.getItem("url")) {
+      return;
     }
     fetchData();
 

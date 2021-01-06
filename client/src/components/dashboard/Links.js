@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Links({ url }) {
+export default function Links(props) {
+  const url = JSON.parse(localStorage.getItem("url")) || props.url;
   return (
     <>
       <div className="dashboard-link-div">

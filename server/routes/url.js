@@ -53,6 +53,9 @@ router.get("/:shortUrl", async (req, res) => {
 //Correcting a url
 router.patch("/:id", verifyToken, async (req, res) => {
   const fullUrl = req.body.fullUrl;
+  if (fullUrl == "" || fullUrl == 0 || !fullUrl.split(".")[1]) {
+    return res.sendStatus(400);
+  }
   try {
     const url = await Url.findOne({ _id: req.params.id });
 

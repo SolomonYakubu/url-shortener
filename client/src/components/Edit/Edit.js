@@ -26,11 +26,13 @@ export default function Edit(props) {
       //eslint-disable-next-line
       if (response.data.url == 0) {
         props.loading(false);
+        localStorage.removeItem("url");
+
         return setExist(false);
       } else {
         setExist(true);
       }
-
+      localStorage.setItem("url", JSON.stringify(response.data.url));
       setUrl([...response.data.url]);
 
       props.loading(false);
@@ -153,6 +155,14 @@ export default function Edit(props) {
             }, 3000);
             break;
 
+          case "400":
+            toast.error("Link not valid", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: "false",
+            });
+
+            break;
           default:
             toast.error("Network error", {
               position: "top-right",
@@ -166,6 +176,9 @@ export default function Edit(props) {
   useEffect(() => {
     if (token === null) {
       history.push("/");
+    }
+    if (localStorage.getItem("url")) {
+      return;
     }
     fetchData();
 

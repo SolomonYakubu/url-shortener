@@ -34,7 +34,7 @@ function DrawerComponent(props) {
 
         break;
       default:
-        alert("About us");
+        history.push(`/about`);
         break;
     }
   };

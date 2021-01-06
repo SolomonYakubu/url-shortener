@@ -41,6 +41,7 @@ export default function LogIn(props) {
         localStorage.setItem("token", JSON.stringify(token));
         props.loading(false);
         history.push("/dashboard");
+        toast.success("Logged in successfully!!", { autoClose: 2000 });
       }
     } catch (error) {
       const err = error.message.split(" ")[5];

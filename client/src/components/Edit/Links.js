@@ -1,10 +1,11 @@
 import React from "react";
 import swal from "sweetalert";
 export default function Links(props) {
+  const url = JSON.parse(localStorage.getItem("url")) || props.url;
   return (
     <>
       <div className="dashboard-link-div">
-        {props.url.map((item) => (
+        {url.map((item) => (
           <div key={item._id} className="dashboard-link">
             <p
               style={{

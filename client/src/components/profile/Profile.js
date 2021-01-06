@@ -12,7 +12,7 @@ const Profile = (props) => {
   const history = useHistory();
 
   const token = JSON.parse(localStorage.getItem("token"));
-  const [user, setUser] = useState({});
+
   const [hide, setHide] = useState(false);
 
   const [oldPassword, setOldPassword] = useState("");
@@ -37,51 +37,7 @@ const Profile = (props) => {
     if (!token) {
       history.push("/");
     }
-    const getData = async () => {
-      props.loading(true);
-      try {
-        const response = await axios.get(
-          `https://lincut.herokuapp.com/user/${token.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token.token}`,
-            },
-          }
-        );
 
-        setUser(response.data);
-
-        props.loading(false);
-      } catch (error) {
-        const err = error.message.split(" ")[5];
-        props.loading(false);
-        switch (err) {
-          case "401":
-            toast.error("Session expired", {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: "false",
-            });
-            setTimeout(() => {
-              history.push("/");
-              localStorage.clear();
-            }, 3000);
-            break;
-          case "404":
-            localStorage.clear();
-            history.push("/");
-
-            break;
-          default:
-            toast.error("Network error", {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: "false",
-            });
-        }
-      }
-    };
-    getData();
     //eslint-disable-next-line
   }, []);
   const resetPassword = async (e) => {
@@ -143,6 +99,14 @@ const Profile = (props) => {
             hideProgressBar: "false",
           });
           break;
+        case "400":
+          toast.error("passwords must be at least 6 characters long", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: "false",
+          });
+          break;
+
         default:
           toast.error("Network error", {
             position: "top-right",
@@ -235,7 +199,7 @@ const Profile = (props) => {
           />
           <div className="profile-user">
             <div>Email</div>
-            <div>{user.email}</div>
+            <div>{token ? token.email : null}</div>
           </div>
           <button className="profile-reset input" onClick={() => onHide()}>
             Reset Password

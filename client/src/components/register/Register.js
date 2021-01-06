@@ -61,11 +61,14 @@ export default function Register(props) {
       props.loading(false);
       switch (err) {
         case "400":
-          toast.error("Enter a valid email", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: "false",
-          });
+          toast.error(
+            "Enter a valid email or password, passwords must be at least 6 characters",
+            {
+              position: "top-right",
+              autoClose: 6000,
+              hideProgressBar: "false",
+            }
+          );
           break;
         case "406":
           toast.error("Email is already registered", {

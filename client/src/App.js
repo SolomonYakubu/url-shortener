@@ -10,6 +10,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Loader from "./components/loader/Loader";
 import Home from "./components/home/Home";
 import Edit from "./components/Edit/Edit";
+import About from "./components/about/About";
 import "./App.css";
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <Route path="/edit">
             <Edit loading={loading} />
+          </Route>
+          <Route path="/about">
+            <About />
           </Route>
           <Route path="/*">
             <Error />

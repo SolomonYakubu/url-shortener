@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, {
         expiresIn: "1h",
       });
-      res.json({ id: user._id, token });
+      res.json({ id: user._id, email, token });
     } else {
       res.sendStatus(406);
     }
@@ -83,6 +83,9 @@ router.patch("/:id", verifyToken, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   if (req.data.id != req.params.id) {
     return res.sendStatus(403);
+  }
+  if (newPassword == 0 || newPassword.length < 6) {
+    return res.sendStatus(400);
   }
   try {
     const user = await User.findById(req.params.id);
