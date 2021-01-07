@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
+import { AppBar, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import ToolbarComponent from "./Toolbar";
 import DrawerComponent from "./Drawer";
 
 export default function Header() {
+  const theme = createMuiTheme({
+    typography: {
+      fontFamily: ["Audiowide", "Roboto", "Poppins"].join(","),
+    },
+  });
   const [state, setState] = useState(false);
 
   const toggleDrawer = () => {
@@ -16,16 +21,15 @@ export default function Header() {
 
   return (
     <>
-      <AppBar
-        position="sticky"
-        style={{ background: "#282c34", fontFamily: "Audiowide" }}
-      >
-        <ToolbarComponent
-          openDrawerHandler={openDrawer}
-          toggleDrawerHandler={toggleDrawer}
-          left={state}
-        />
-        <DrawerComponent left={state} toggleDrawerHandler={toggleDrawer} />
+      <AppBar position="sticky" style={{ background: "#282c34" }}>
+        <MuiThemeProvider theme={theme}>
+          <ToolbarComponent
+            openDrawerHandler={openDrawer}
+            toggleDrawerHandler={toggleDrawer}
+            left={state}
+          />
+          <DrawerComponent left={state} toggleDrawerHandler={toggleDrawer} />
+        </MuiThemeProvider>
       </AppBar>
     </>
   );
