@@ -199,7 +199,9 @@ const Profile = (props) => {
           />
           <div className="profile-user">
             <div>Email</div>
-            <div>{token ? token.email : null}</div>
+            <div style={{ wordBreak: "break-all" }}>
+              {token ? token.email : null}
+            </div>
           </div>
           <button className="profile-reset input" onClick={() => onHide()}>
             Reset Password
