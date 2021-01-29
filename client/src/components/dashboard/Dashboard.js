@@ -143,11 +143,11 @@ export default function Dashboard(props) {
     if (token === null) {
       history.push("/");
     }
-
+fetchData();
     if (localStorage.getItem("url")) {
       return;
     }
-    fetchData();
+  //  fetchData();
 
     //eslint-disable-next-line
   }, []);
